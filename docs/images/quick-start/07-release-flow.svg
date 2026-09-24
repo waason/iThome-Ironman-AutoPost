@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820" fill="#172033" role="img" aria-labelledby="title desc">
+  <title id="title">安全啟用自動發布流程</title>
+  <desc id="desc">從範本模式、驗證、預覽、儲存草稿、手動發布到開啟排程，每一階段通過後才進入下一階段。</desc>
+  <style>
+    text { font-family: "Segoe UI", "Microsoft JhengHei", sans-serif; }
+    .title { font-size: 38px; font-weight: 700; }
+    .subtitle { font-size: 20px; fill: #526079; }
+    .step { font-size: 22px; font-weight: 700; }
+    .body { font-size: 17px; }
+    .gate { font-size: 18px; font-weight: 700; }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <rect width="1400" height="820" rx="28" fill="#f8fafc"/>
+  <text x="70" y="78" class="title">步驟 7｜照順序開啟，不要直接啟用排程</text>
+  <text x="70" y="116" class="subtitle">任一階段不正確，就停在該階段修正。</text>
+
+  <g transform="translate(70 175)">
+    <rect width="260" height="130" rx="22" fill="#e0f2fe" stroke="#0284c7" stroke-width="3"/>
+    <text x="130" y="45" text-anchor="middle" class="step">1. 安全設定</text>
+    <text x="130" y="79" text-anchor="middle" class="body">templateMode: true</text>
+    <text x="130" y="105" text-anchor="middle" class="body">填完 ID 與文章路徑</text>
+  </g>
+  <line x1="335" y1="240" x2="410" y2="240" stroke="#64748b" stroke-width="4" marker-end="url(#arrow)"/>
+  <g transform="translate(420 175)">
+    <rect width="260" height="130" rx="22" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
+    <text x="130" y="45" text-anchor="middle" class="step">2. 本機驗證</text>
+    <text x="130" y="79" text-anchor="middle" class="body">check + validate:all</text>
+    <text x="130" y="105" text-anchor="middle" class="body">三種 --plan</text>
+  </g>
+  <line x1="685" y1="240" x2="760" y2="240" stroke="#64748b" stroke-width="4" marker-end="url(#arrow)"/>
+  <g transform="translate(770 175)">
+    <rect width="260" height="130" rx="22" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+    <text x="130" y="45" text-anchor="middle" class="step">3. 建立 Session</text>
+    <text x="130" y="79" text-anchor="middle" class="body">人工登入 iThome</text>
+    <text x="130" y="105" text-anchor="middle" class="body">設定登入 Secret</text>
+  </g>
+  <line x1="1035" y1="240" x2="1110" y2="240" stroke="#64748b" stroke-width="4" marker-end="url(#arrow)"/>
+  <g transform="translate(1120 175)">
+    <rect width="210" height="130" rx="22" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+    <text x="105" y="45" text-anchor="middle" class="step">4. 真實模式</text>
+    <text x="105" y="79" text-anchor="middle" class="body">確認範例值已移除</text>
+    <text x="105" y="105" text-anchor="middle" class="body">templateMode: false</text>
+  </g>
+
+  <line x1="1225" y1="310" x2="1225" y2="385" stroke="#64748b" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <g transform="translate(1070 400)">
+    <rect width="260" height="130" rx="22" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+    <text x="130" y="45" text-anchor="middle" class="step">5. Preview</text>
+    <text x="130" y="79" text-anchor="middle" class="body">只填入，不儲存</text>
+    <text x="130" y="105" text-anchor="middle" class="body">先測單一系列 Day 1</text>
+  </g>
+  <line x1="1065" y1="465" x2="990" y2="465" stroke="#64748b" stroke-width="4" marker-end="url(#arrow)"/>
+  <g transform="translate(720 400)">
+    <rect width="260" height="130" rx="22" fill="#ffedd5" stroke="#ea580c" stroke-width="3"/>
+    <text x="130" y="45" text-anchor="middle" class="step">6. Save draft</text>
+    <text x="130" y="79" text-anchor="middle" class="body">輸入 SAVE_DRAFT</text>
+    <text x="130" y="105" text-anchor="middle" class="body">儲存後重新讀回驗證</text>
+  </g>
+  <line x1="715" y1="465" x2="640" y2="465" stroke="#64748b" stroke-width="4" marker-end="url(#arrow)"/>
+  <g transform="translate(370 400)">
+    <rect width="260" height="130" rx="22" fill="#fee2e2" stroke="#dc2626" stroke-width="3"/>
+    <text x="130" y="45" text-anchor="middle" class="step">7. 手動 Publish</text>
+    <text x="130" y="79" text-anchor="middle" class="body">輸入 PUBLISH</text>
+    <text x="130" y="105" text-anchor="middle" class="body">確認公開頁與 RSS</text>
+  </g>
+  <line x1="365" y1="465" x2="290" y2="465" stroke="#64748b" stroke-width="4" marker-end="url(#arrow)"/>
+  <g transform="translate(70 400)">
+    <rect width="210" height="130" rx="22" fill="#dcfce7" stroke="#16a34a" stroke-width="4"/>
+    <text x="105" y="45" text-anchor="middle" class="step">8. 開啟排程</text>
+    <text x="105" y="79" text-anchor="middle" class="body">建立變數</text>
+    <text x="105" y="105" text-anchor="middle" class="body">PUBLISH_ENABLED=true</text>
+  </g>
+
+  <rect x="150" y="620" width="1100" height="120" rx="22" fill="#172033"/>
+  <text x="700" y="660" text-anchor="middle" class="gate" fill="#fff">完成判定以公開文章頁與系列 RSS 為準</text>
+  <text x="700" y="696" text-anchor="middle" class="body" fill="#cbd5e1">GitHub Actions 顯示 Success，只代表 workflow 執行完成。</text>
+  <text x="700" y="726" text-anchor="middle" class="body" fill="#cbd5e1">看不到公開文章時，先保持排程關閉，再檢查 receipt、文章列表與 RSS。</text>
+</svg>

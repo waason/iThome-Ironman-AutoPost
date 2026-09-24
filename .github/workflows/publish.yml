@@ -1,0 +1,127 @@
+name: Publish iThome articles
+
+on:
+  workflow_dispatch:
+    inputs:
+      publication_date:
+        description: 要發布的台灣日期，必須是執行當天
+        required: true
+        type: string
+      series:
+        description: 系列 key；all 代表全部 ready 系列
+        required: true
+        default: all
+        type: string
+      confirm_publish:
+        description: 輸入 PUBLISH 才允許正式公開文章
+        required: true
+        type: string
+  schedule:
+    # GitHub Actions 使用 UTC；22:07 UTC 是隔日 06:07 Asia/Taipei。
+    - cron: "7 22 * * *"
+    # 06:22 補償排程會由 RSS 與個人文章列表防止重複發布。
+    - cron: "22 22 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ithome-live-write
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      ((github.event_name == 'workflow_dispatch' && inputs.confirm_publish == 'PUBLISH') ||
+      (github.event_name == 'schedule' && vars.ITHOME_PUBLISH_ENABLED == 'true'))
+    environment: ithome-publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24"
+          package-manager-cache: false
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Block unconfigured public templates
+        run: npm run preflight -- --operation publish
+
+      - name: Resolve campaign day
+        id: campaign
+        env:
+          PUBLICATION_DATE: ${{ inputs.publication_date }}
+          PUBLICATION_SERIES: ${{ inputs.series || 'all' }}
+        run: |
+          set -euo pipefail
+          publication_date="$PUBLICATION_DATE"
+          scheduled_args=()
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ]; then
+            publication_date="$(TZ=Asia/Taipei date +%F)"
+            scheduled_args+=(--scheduled)
+          fi
+          automation_args=(--date "$publication_date" --plan --json "${scheduled_args[@]}")
+          if [ "$PUBLICATION_SERIES" != "all" ]; then
+            automation_args+=(--series "$PUBLICATION_SERIES")
+          fi
+          mkdir -p output
+          node --import tsx src/automation-cli.ts --mode publish "${automation_args[@]}" > output/schedule-plan.json
+          active="$(node -e "const fs=require('fs');const value=JSON.parse(fs.readFileSync('output/schedule-plan.json','utf8'));process.stdout.write(value.mode==='schedule-noop'?'false':'true')")"
+          echo "active=$active" >> "$GITHUB_OUTPUT"
+          echo "publication_date=$publication_date" >> "$GITHUB_OUTPUT"
+
+      - name: Run tests and validate ready articles
+        if: steps.campaign.outputs.active == 'true'
+        run: |
+          npm run check
+          npm run validate:all
+
+      - name: Install Chromium
+        if: steps.campaign.outputs.active == 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Restore iThome login state
+        if: steps.campaign.outputs.active == 'true'
+        env:
+          ITHOME_STORAGE_STATE_B64: ${{ secrets.ITHOME_STORAGE_STATE_B64 }}
+        run: |
+          test -n "$ITHOME_STORAGE_STATE_B64"
+          printf '%s' "$ITHOME_STORAGE_STATE_B64" | base64 --decode > "$RUNNER_TEMP/ithome-storage-state.json"
+
+      - name: Save, read back, publish and verify selected articles
+        if: steps.campaign.outputs.active == 'true'
+        env:
+          PUBLICATION_DATE: ${{ steps.campaign.outputs.publication_date }}
+          PUBLICATION_SERIES: ${{ inputs.series || 'all' }}
+        run: |
+          set -euo pipefail
+          automation_args=(--date "$PUBLICATION_DATE" --storage-state "$RUNNER_TEMP/ithome-storage-state.json" --confirm PUBLISH)
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ]; then
+            automation_args+=(--scheduled)
+          fi
+          if [ "$PUBLICATION_SERIES" != "all" ]; then
+            automation_args+=(--series "$PUBLICATION_SERIES")
+          fi
+          mkdir -p output
+          xvfb-run --auto-servernum node --import tsx src/automation-cli.ts --mode publish "${automation_args[@]}" --headed --json | tee output/publish-result.json
+
+      - name: Upload publication receipts and screenshots
+        if: always() && vars.ITHOME_UPLOAD_ARTIFACTS == 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ithome-publication-${{ github.run_id }}
+          path: |
+            output/receipts/
+            output/playwright/
+            output/schedule-plan.json
+            output/publish-result.json
+          if-no-files-found: ignore
+          retention-days: 90

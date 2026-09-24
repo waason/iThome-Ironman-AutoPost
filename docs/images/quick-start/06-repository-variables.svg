@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" fill="#172033" role="img" aria-labelledby="title desc">
+  <title id="title">GitHub Repository Variables 設定</title>
+  <desc id="desc">ITHOME_PUBLISH_ENABLED 控制排程發布，ITHOME_UPLOAD_ARTIFACTS 控制是否保存可能含文章內容的產物。</desc>
+  <style>
+    text { font-family: "Segoe UI", "Microsoft JhengHei", sans-serif; }
+    .title { font-size: 38px; font-weight: 700; }
+    .subtitle { font-size: 20px; fill: #526079; }
+    .path { font-size: 21px; font-weight: 700; }
+    .name { font-family: Consolas, monospace; font-size: 22px; font-weight: 700; }
+    .body { font-size: 19px; }
+    .value { font-family: Consolas, monospace; font-size: 25px; font-weight: 800; }
+  </style>
+  <rect width="1400" height="760" rx="28" fill="#f8fafc"/>
+  <text x="70" y="78" class="title">步驟 6｜最後才開啟 Repository Variables</text>
+  <text x="70" y="116" class="subtitle">Variable 是開關，不是 Secret；敏感資料只能放 Secret。</text>
+
+  <rect x="70" y="155" width="1260" height="70" rx="18" fill="#172033"/>
+  <text x="700" y="198" text-anchor="middle" class="path" fill="#fff">Settings → Secrets and variables → Actions → Variables</text>
+
+  <rect x="70" y="270" width="600" height="310" rx="24" fill="#fff" stroke="#fca5a5" stroke-width="3"/>
+  <text x="108" y="326" class="name">ITHOME_PUBLISH_ENABLED</text>
+  <text x="108" y="373" class="body">用途：允許 publish.yml 的每日排程正式發文</text>
+  <text x="108" y="413" class="body">設定時機：Preview、Save draft、手動 Publish 都成功後</text>
+  <rect x="108" y="452" width="524" height="78" rx="14" fill="#fef2f2"/>
+  <text x="370" y="485" text-anchor="middle" class="body">Name 如上，Value 填</text>
+  <text x="370" y="516" text-anchor="middle" class="value" fill="#b91c1c">true</text>
+
+  <rect x="730" y="270" width="600" height="310" rx="24" fill="#fff" stroke="#93c5fd" stroke-width="3"/>
+  <text x="768" y="326" class="name">ITHOME_UPLOAD_ARTIFACTS</text>
+  <text x="768" y="373" class="body">用途：上傳 screenshot、receipt 與執行結果</text>
+  <text x="768" y="413" class="body">設定時機：選配，確認 Repo 可見性與內容風險後</text>
+  <rect x="768" y="452" width="524" height="78" rx="14" fill="#eff6ff"/>
+  <text x="1030" y="485" text-anchor="middle" class="body">不需要除錯證據時</text>
+  <text x="1030" y="516" text-anchor="middle" class="value" fill="#1d4ed8">不要建立</text>
+
+  <rect x="155" y="625" width="1090" height="80" rx="18" fill="#fef3c7"/>
+  <text x="700" y="657" text-anchor="middle" class="body" fill="#92400e">緊急停止：刪除 ITHOME_PUBLISH_ENABLED 或把值改成 false</text>
+  <text x="700" y="687" text-anchor="middle" class="body" fill="#92400e">它只控制排程；手動 Publish 仍必須輸入 PUBLISH。</text>
+</svg>

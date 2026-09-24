@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="800" viewBox="0 0 1400 800" fill="#172033" role="img" aria-labelledby="title desc">
+  <title id="title">文章資料夾與 Markdown 格式</title>
+  <desc id="desc">每個系列使用獨立資料夾，Day 檔名與第一行 H1 的 Day 必須一致。</desc>
+  <style>
+    text { font-family: "Segoe UI", "Microsoft JhengHei", sans-serif; }
+    .title { font-size: 38px; font-weight: 700; }
+    .subtitle { font-size: 20px; fill: #526079; }
+    .tree { font-family: Consolas, "Microsoft JhengHei", monospace; font-size: 21px; }
+    .label { font-size: 24px; font-weight: 700; }
+    .body { font-size: 19px; }
+    .code { font-family: Consolas, "Microsoft JhengHei", monospace; font-size: 20px; }
+  </style>
+  <rect width="1400" height="800" rx="28" fill="#f8fafc"/>
+  <text x="70" y="78" class="title">步驟 2｜一個系列，一個文章資料夾</text>
+  <text x="70" y="116" class="subtitle">檔名 Day 與文章第一行 H1 的 Day 必須完全一致。</text>
+
+  <rect x="70" y="160" width="570" height="530" rx="24" fill="#172033"/>
+  <text x="108" y="210" class="label" fill="#fff">建議目錄</text>
+  <text x="108" y="258" class="tree" fill="#dbeafe">articles/</text>
+  <text x="108" y="300" class="tree" fill="#dbeafe">├── ui-series/</text>
+  <text x="108" y="342" class="tree" fill="#fff">│   ├── Day01.md</text>
+  <text x="108" y="384" class="tree" fill="#fff">│   ├── Day02.md</text>
+  <text x="108" y="426" class="tree" fill="#94a3b8">│   └── ... Day30.md</text>
+  <text x="108" y="468" class="tree" fill="#dbeafe">└── clean-code/</text>
+  <text x="108" y="510" class="tree" fill="#fff">    ├── Day01.md</text>
+  <text x="108" y="552" class="tree" fill="#fff">    ├── Day02.md</text>
+  <text x="108" y="594" class="tree" fill="#94a3b8">    └── ... Day33.md</text>
+  <rect x="108" y="625" width="485" height="42" rx="10" fill="#334155"/>
+  <text x="350" y="652" text-anchor="middle" class="body" fill="#fde68a">不要讓同一個 Day 出現兩個檔案</text>
+
+  <rect x="700" y="160" width="630" height="530" rx="24" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="740" y="210" class="label">Day01.md 最小格式</text>
+  <rect x="740" y="240" width="550" height="164" rx="16" fill="#f1f5f9"/>
+  <text x="772" y="292" class="code" fill="#1d4ed8"># Day 1｜文章標題</text>
+  <text x="772" y="352" class="code">文章 Markdown 內文...</text>
+  <text x="740" y="455" class="body">✓ 支援：Day01.md</text>
+  <text x="740" y="493" class="body">✓ 支援：Day 01｜文章標題.md</text>
+  <text x="740" y="531" class="body">✓ 圖片：公開 https:// 網址</text>
+  <text x="740" y="583" class="body" fill="#b91c1c">✗ 相對圖片路徑，例如 ./images/a.png</text>
+  <text x="740" y="621" class="body" fill="#b91c1c">✗ Day01.md 內寫成 # Day 2</text>
+
+  <rect x="250" y="726" width="900" height="46" rx="12" fill="#dcfce7"/>
+  <text x="700" y="756" text-anchor="middle" class="body" fill="#166534">完成後執行 npm.cmd run validate:all</text>
+</svg>

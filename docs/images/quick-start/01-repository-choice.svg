@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" fill="#172033" role="img" aria-labelledby="title desc">
+  <title id="title">Fork 或 Clone 到私人儲存庫的選擇</title>
+  <desc id="desc">公開範例可使用 Fork，尚未發布的真實文章應 Clone 後推送到私人儲存庫。</desc>
+  <style>
+    text { font-family: "Segoe UI", "Microsoft JhengHei", sans-serif; }
+    .title { font-size: 38px; font-weight: 700; }
+    .subtitle { font-size: 21px; fill: #526079; }
+    .card-title { font-size: 28px; font-weight: 700; }
+    .body { font-size: 20px; }
+    .small { font-size: 17px; fill: #526079; }
+    .badge { font-size: 17px; font-weight: 700; }
+  </style>
+  <rect width="1400" height="760" rx="28" fill="#f8fafc"/>
+  <text x="70" y="78" class="title">步驟 0｜先決定文章要放在哪裡</text>
+  <text x="70" y="116" class="subtitle">選錯儲存庫可見性，未發布文章就可能直接公開。</text>
+
+  <rect x="70" y="160" width="600" height="450" rx="24" fill="#fff" stroke="#f59e0b" stroke-width="3"/>
+  <rect x="98" y="190" width="132" height="36" rx="18" fill="#fef3c7"/>
+  <text x="118" y="215" class="badge" fill="#92400e">公開使用</text>
+  <text x="98" y="270" class="card-title">Fork 公開 Repo</text>
+  <text x="98" y="316" class="body">① GitHub 專案頁 → Fork</text>
+  <text x="98" y="354" class="body">② 建立你自己的公開 Fork</text>
+  <text x="98" y="392" class="body">③ Actions → 啟用 workflows</text>
+  <line x1="98" y1="426" x2="642" y2="426" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="98" y="468" class="body" fill="#b45309">適合：公開範例、學習、提交 PR</text>
+  <text x="98" y="506" class="body" fill="#b91c1c">不適合：尚未發布的正式文章</text>
+  <text x="98" y="548" class="small">公開 Repo 的 Fork 仍是公開的。</text>
+
+  <rect x="730" y="160" width="600" height="450" rx="24" fill="#fff" stroke="#16a34a" stroke-width="4"/>
+  <rect x="758" y="190" width="190" height="36" rx="18" fill="#dcfce7"/>
+  <text x="778" y="215" class="badge" fill="#166534">正式文章推薦</text>
+  <text x="758" y="270" class="card-title">Clone → Private Repo</text>
+  <text x="758" y="316" class="body">① Clone 這個範本到電腦</text>
+  <text x="758" y="354" class="body">② 在 GitHub 建立空的 Private Repo</text>
+  <text x="758" y="392" class="body">③ 將 origin 改成你的 Private Repo</text>
+  <line x1="758" y1="426" x2="1302" y2="426" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="758" y="468" class="body" fill="#166534">適合：未發布文章與正式設定</text>
+  <text x="758" y="510" class="small">Cookie 只放 Secret；文章本身仍需靠</text>
+  <text x="758" y="540" class="small">Private Repo 保護。</text>
+
+  <rect x="250" y="650" width="900" height="70" rx="18" fill="#172033"/>
+  <text x="700" y="694" text-anchor="middle" font-size="23" font-weight="700" fill="#fff">要放真實文章？請選右邊的 Private Repo</text>
+</svg>

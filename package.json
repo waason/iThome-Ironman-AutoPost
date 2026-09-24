@@ -1,0 +1,30 @@
+{
+  "name": "ithome-ironman-autopost",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "tsx --test tests/**/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "validate": "tsx src/cli.ts validate",
+    "validate:all": "tsx src/cli.ts validate --all",
+    "preview": "tsx src/preview-cli.ts",
+    "preflight": "tsx src/preflight-cli.ts",
+    "automation": "tsx src/automation-cli.ts",
+    "save-draft": "tsx src/automation-cli.ts --mode save-draft",
+    "publish": "tsx src/automation-cli.ts --mode publish",
+    "check": "npm run test && npm run typecheck"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "playwright": "^1.62.1",
+    "yaml": "^2.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

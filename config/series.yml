@@ -1,0 +1,24 @@
+campaign:
+  id: sample-campaign
+  templateMode: true
+  authorId: 99999901
+  startDate: "2099-09-01"
+  totalDays: 30
+  timeZone: Asia/Taipei
+  publishTime: "06:00"
+  cron: "7 22 * * *"
+  createUrlTemplate: "https://ithelp.ithome.com.tw/2099ironman/create/{signupId}"
+
+blockedSignupIds: []
+
+series:
+  - key: sample-series
+    displayName: 範例系列
+    signupId: 99999902
+    category: Software Development
+    expectedTitle: "請替換成你的 iThome 系列題目"
+    articleRoot: articles/sample-series
+    totalDays: 30
+    day1DraftId: 99999903
+    ready: true
+    publishOrder: 1

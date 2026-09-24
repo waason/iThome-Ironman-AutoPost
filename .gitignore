@@ -1,0 +1,14 @@
+node_modules/
+coverage/
+artifacts/
+playwright-report/
+test-results/
+output/playwright/
+output/receipts/
+output/*-result.json
+output/schedule-plan.json
+.playwright-cli/
+.env
+.env.*
+storage-state.json
+*.log

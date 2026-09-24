@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820" fill="#172033" role="img" aria-labelledby="title desc">
+  <title id="title">iThome 設定 ID 來源</title>
+  <desc id="desc">從個人文章頁、系列頁、Day 1 草稿網址及建立文章網址取得設定值。</desc>
+  <style>
+    text { font-family: "Segoe UI", "Microsoft JhengHei", sans-serif; }
+    .title { font-size: 38px; font-weight: 700; }
+    .subtitle { font-size: 20px; fill: #526079; }
+    .label { font-size: 23px; font-weight: 700; }
+    .body { font-size: 19px; }
+    .code { font-family: Consolas, monospace; font-size: 18px; }
+    .number { font-size: 22px; font-weight: 800; fill: #fff; }
+  </style>
+  <rect width="1400" height="820" rx="28" fill="#f8fafc"/>
+  <text x="70" y="78" class="title">步驟 1｜先收集 4 個 iThome 設定值</text>
+  <text x="70" y="116" class="subtitle">網址中的數字只是位置示意，請換成你自己的值。</text>
+
+  <g transform="translate(70 160)">
+    <rect width="1260" height="126" rx="20" fill="#fff" stroke="#93c5fd" stroke-width="2"/>
+    <circle cx="48" cy="48" r="25" fill="#2563eb"/><text x="48" y="56" text-anchor="middle" class="number">1</text>
+    <text x="92" y="49" class="label">authorId｜作者數字 ID</text>
+    <text x="92" y="82" class="body">開啟自己的文章列表，複製 users/ 後面的數字。</text>
+    <rect x="710" y="30" width="510" height="60" rx="12" fill="#eff6ff"/>
+    <text x="735" y="67" class="code">/users/<tspan fill="#dc2626" font-weight="700">123456</tspan>/articles</text>
+  </g>
+
+  <g transform="translate(70 310)">
+    <rect width="1260" height="126" rx="20" fill="#fff" stroke="#a7f3d0" stroke-width="2"/>
+    <circle cx="48" cy="48" r="25" fill="#059669"/><text x="48" y="56" text-anchor="middle" class="number">2</text>
+    <text x="92" y="49" class="label">signupId｜報名系列 ID</text>
+    <text x="92" y="82" class="body">開啟已報名系列頁，複製網址最後一段數字。</text>
+    <rect x="710" y="30" width="510" height="60" rx="12" fill="#ecfdf5"/>
+    <text x="735" y="67" class="code">/users/123456/ironman/<tspan fill="#dc2626" font-weight="700">990001</tspan></text>
+  </g>
+
+  <g transform="translate(70 460)">
+    <rect width="1260" height="126" rx="20" fill="#fff" stroke="#c4b5fd" stroke-width="2"/>
+    <circle cx="48" cy="48" r="25" fill="#7c3aed"/><text x="48" y="56" text-anchor="middle" class="number">3</text>
+    <text x="92" y="49" class="label">day1DraftId｜Day 1 草稿 ID</text>
+    <text x="92" y="82" class="body">先在 iThome 建立 Day 1 草稿，再複製 articles/ 後面的數字。</text>
+    <rect x="710" y="30" width="510" height="60" rx="12" fill="#f5f3ff"/>
+    <text x="735" y="67" class="code">/articles/<tspan fill="#dc2626" font-weight="700">10203040</tspan>/draft</text>
+  </g>
+
+  <g transform="translate(70 610)">
+    <rect width="1260" height="126" rx="20" fill="#fff" stroke="#fdba74" stroke-width="2"/>
+    <circle cx="48" cy="48" r="25" fill="#ea580c"/><text x="48" y="56" text-anchor="middle" class="number">4</text>
+    <text x="92" y="49" class="label">createUrlTemplate｜Day 2 起的建立文章入口</text>
+    <text x="92" y="82" class="body">從該年度發文入口確認年份，最後保留 {signupId}。</text>
+    <rect x="625" y="30" width="595" height="60" rx="12" fill="#fff7ed"/>
+    <text x="648" y="67" class="code">/2026ironman/create/<tspan fill="#dc2626" font-weight="700">{signupId}</tspan></text>
+  </g>
+
+  <text x="700" y="785" text-anchor="middle" class="subtitle">舊的中斷系列 ID 請另外放進 blockedSignupIds，避免誤發。</text>
+</svg>

@@ -1,0 +1,75 @@
+name: Preview iThome Day 1 draft
+
+on:
+  workflow_dispatch:
+    inputs:
+      preview_date:
+        description: Day 1 日期，格式 YYYY-MM-DD
+        required: true
+        type: string
+      series:
+        description: 系列 key；all 代表全部 ready 系列
+        required: true
+        default: all
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ithome-day-one-preview
+  cancel-in-progress: false
+
+jobs:
+  preview:
+    if: github.ref == 'refs/heads/main'
+    environment: ithome-preview
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24"
+          package-manager-cache: false
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Block unconfigured public templates
+        run: npm run preflight -- --operation preview
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Restore iThome login state
+        env:
+          ITHOME_STORAGE_STATE_B64: ${{ secrets.ITHOME_STORAGE_STATE_B64 }}
+        run: |
+          test -n "$ITHOME_STORAGE_STATE_B64"
+          printf '%s' "$ITHOME_STORAGE_STATE_B64" | base64 --decode > "$RUNNER_TEMP/ithome-storage-state.json"
+
+      - name: Fill Day 1 fields and capture screenshots
+        env:
+          PREVIEW_DATE: ${{ inputs.preview_date }}
+          PREVIEW_SERIES: ${{ inputs.series }}
+        run: |
+          set -euo pipefail
+          preview_args=(--date "$PREVIEW_DATE" --storage-state "$RUNNER_TEMP/ithome-storage-state.json")
+          if [ "$PREVIEW_SERIES" != "all" ]; then
+            preview_args+=(--series "$PREVIEW_SERIES")
+          fi
+          xvfb-run --auto-servernum npm run preview -- "${preview_args[@]}" --headed --json
+
+      - name: Upload preview screenshots
+        if: always() && vars.ITHOME_UPLOAD_ARTIFACTS == 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ithome-day-one-preview-${{ github.run_id }}
+          path: output/playwright/
+          if-no-files-found: ignore
+          retention-days: 3

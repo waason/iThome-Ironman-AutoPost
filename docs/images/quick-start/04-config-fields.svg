@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860" fill="#172033" role="img" aria-labelledby="title desc">
+  <title id="title">series.yml 必填欄位</title>
+  <desc id="desc">campaign 設定整次連載，series 陣列中的每一筆設定一個系列。</desc>
+  <style>
+    text { font-family: "Segoe UI", "Microsoft JhengHei", sans-serif; }
+    .title { font-size: 38px; font-weight: 700; }
+    .subtitle { font-size: 20px; fill: #526079; }
+    .card-title { font-size: 27px; font-weight: 700; }
+    .field { font-family: Consolas, monospace; font-size: 19px; font-weight: 700; fill: #1d4ed8; }
+    .body { font-size: 18px; }
+    .warning { font-size: 19px; font-weight: 700; }
+  </style>
+  <rect width="1400" height="860" rx="28" fill="#f8fafc"/>
+  <text x="70" y="78" class="title">步驟 3｜填寫 config/series.yml</text>
+  <text x="70" y="116" class="subtitle">先保持 templateMode: true；所有 plan 與 UAT 正確後再關閉。</text>
+
+  <rect x="70" y="155" width="600" height="570" rx="24" fill="#fff" stroke="#93c5fd" stroke-width="2"/>
+  <text x="108" y="205" class="card-title">campaign｜整次連載共用</text>
+  <text x="108" y="254" class="field">id</text><text x="325" y="254" class="body">自訂活動代號，不可空白</text>
+  <text x="108" y="296" class="field">templateMode</text><text x="325" y="296" class="body">第一次設定固定填 true</text>
+  <text x="108" y="338" class="field">authorId</text><text x="325" y="338" class="body">個人文章網址的作者 ID</text>
+  <text x="108" y="380" class="field">startDate</text><text x="325" y="380" class="body">Day 1 台灣日期 YYYY-MM-DD</text>
+  <text x="108" y="422" class="field">totalDays</text><text x="325" y="422" class="body">所有系列中最大的天數</text>
+  <text x="108" y="464" class="field">publishTime</text><text x="325" y="464" class="body">允許發布的最早台灣時間</text>
+  <text x="108" y="506" class="field">cron</text><text x="325" y="506" class="body">UTC 主排程，需同步 workflow</text>
+  <text x="108" y="548" class="field">createUrlTemplate</text><text x="325" y="548" class="body">保留 {signupId}</text>
+  <rect x="108" y="592" width="524" height="88" rx="14" fill="#eff6ff"/>
+  <text x="370" y="625" text-anchor="middle" class="body">30 天 + 33 天兩系列：</text>
+  <text x="370" y="655" text-anchor="middle" class="warning" fill="#1d4ed8">campaign.totalDays 必須填 33</text>
+
+  <rect x="730" y="155" width="600" height="570" rx="24" fill="#fff" stroke="#a7f3d0" stroke-width="2"/>
+  <text x="768" y="205" class="card-title">series[]｜每個系列各一筆</text>
+  <text x="768" y="248" class="field">key</text><text x="990" y="248" class="body">CLI 使用的唯一短代號</text>
+  <text x="768" y="284" class="field">displayName</text><text x="990" y="284" class="body">方便閱讀的系列名稱</text>
+  <text x="768" y="320" class="field">signupId</text><text x="990" y="320" class="body">iThome 報名系列 ID</text>
+  <text x="768" y="356" class="field">category</text><text x="990" y="356" class="body">iThome 報名主題名稱</text>
+  <text x="768" y="392" class="field">expectedTitle</text><text x="990" y="392" class="body">報名時的完整題目</text>
+  <text x="768" y="428" class="field">articleRoot</text><text x="990" y="428" class="body">Repo 內相對文章路徑</text>
+  <text x="768" y="464" class="field">totalDays</text><text x="990" y="464" class="body">這一系列的文章天數</text>
+  <text x="768" y="500" class="field">day1DraftId</text><text x="990" y="500" class="body">Day 1 已建草稿 ID</text>
+  <text x="768" y="536" class="field">ready</text><text x="990" y="536" class="body">是否納入每日計畫</text>
+  <text x="768" y="572" class="field">publishOrder</text><text x="990" y="572" class="body">多系列發布順序，不可重複</text>
+  <rect x="768" y="620" width="524" height="60" rx="14" fill="#ecfdf5"/>
+  <text x="1030" y="658" text-anchor="middle" class="warning" fill="#166534">每增加一個系列，就增加一筆 series</text>
+
+  <rect x="155" y="760" width="1090" height="64" rx="16" fill="#fef3c7"/>
+  <text x="700" y="801" text-anchor="middle" class="warning" fill="#92400e">blockedSignupIds 請列出舊、中斷或禁止使用的系列 ID</text>
+</svg>

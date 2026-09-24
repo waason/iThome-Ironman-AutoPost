@@ -1,0 +1,91 @@
+name: Save iThome draft
+
+on:
+  workflow_dispatch:
+    inputs:
+      publication_date:
+        description: 要儲存的台灣日期，格式 YYYY-MM-DD
+        required: true
+        type: string
+      series:
+        description: 系列 key；all 代表全部 ready 系列
+        required: true
+        default: all
+        type: string
+      confirm_save:
+        description: 輸入 SAVE_DRAFT 才允許寫入 iThome 草稿
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ithome-live-write
+  cancel-in-progress: false
+
+jobs:
+  save:
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      github.event_name == 'workflow_dispatch' &&
+      inputs.confirm_save == 'SAVE_DRAFT'
+    environment: ithome-save-draft
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24"
+          package-manager-cache: false
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Block unconfigured public templates
+        run: npm run preflight -- --operation save-draft
+
+      - name: Run tests and validate ready articles
+        run: |
+          npm run check
+          npm run validate:all
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Restore iThome login state
+        env:
+          ITHOME_STORAGE_STATE_B64: ${{ secrets.ITHOME_STORAGE_STATE_B64 }}
+        run: |
+          test -n "$ITHOME_STORAGE_STATE_B64"
+          printf '%s' "$ITHOME_STORAGE_STATE_B64" | base64 --decode > "$RUNNER_TEMP/ithome-storage-state.json"
+
+      - name: Save and read back selected drafts
+        env:
+          PUBLICATION_DATE: ${{ inputs.publication_date }}
+          PUBLICATION_SERIES: ${{ inputs.series }}
+        run: |
+          set -euo pipefail
+          automation_args=(--date "$PUBLICATION_DATE" --storage-state "$RUNNER_TEMP/ithome-storage-state.json" --confirm SAVE_DRAFT)
+          if [ "$PUBLICATION_SERIES" != "all" ]; then
+            automation_args+=(--series "$PUBLICATION_SERIES")
+          fi
+          mkdir -p output
+          xvfb-run --auto-servernum node --import tsx src/automation-cli.ts --mode save-draft "${automation_args[@]}" --headed --json | tee output/save-draft-result.json
+
+      - name: Upload save receipts and screenshots
+        if: always() && vars.ITHOME_UPLOAD_ARTIFACTS == 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ithome-save-draft-${{ github.run_id }}
+          path: |
+            output/receipts/
+            output/playwright/
+            output/save-draft-result.json
+          if-no-files-found: ignore
+          retention-days: 30
