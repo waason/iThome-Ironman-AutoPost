@@ -1,24 +1,24 @@
 campaign:
-  id: sample-campaign
+  id: ithome-ironman-2026
   templateMode: true
-  authorId: 99999901
-  startDate: "2099-09-01"
+  authorId: 20184295
+  startDate: "2026-09-15"
   totalDays: 30
   timeZone: Asia/Taipei
   publishTime: "06:00"
   cron: "7 22 * * *"
-  createUrlTemplate: "https://ithelp.ithome.com.tw/2099ironman/create/{signupId}"
+  createUrlTemplate: "https://ithelp.ithome.com.tw/2026ironman/create/{signupId}"
 
 blockedSignupIds: []
 
 series:
-  - key: sample-series
+  - key: Security-2026
     displayName: 範例系列
-    signupId: 99999902
-    category: Software Development
-    expectedTitle: "請替換成你的 iThome 系列題目"
-    articleRoot: articles/sample-series
+    signupId: 9788
+    category: Security
+    expectedTitle: "從情資收集到資安鑑識：30 天建構自動化威脅情資與鑑識平台"
+    articleRoot: articles/10410846
     totalDays: 30
-    day1DraftId: 99999903
+    day1DraftId: 10410846
     ready: true
     publishOrder: 1
